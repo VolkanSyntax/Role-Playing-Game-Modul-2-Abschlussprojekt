@@ -1,4 +1,4 @@
-open class Held(val name: String, var hp: Int, val maxHp: Int, var isProtected: Boolean = false)  {
+open class Gegner(val name: String, var hp: Int, val maxHp: Int, var isProtected: Boolean = false)  {
     fun takeDamage(damage: Int) {
         if(!isProtected){
             hp = (hp - damage).coerceAtLeast(0)
@@ -15,7 +15,7 @@ open class Held(val name: String, var hp: Int, val maxHp: Int, var isProtected: 
         println("$name heilt sich um $amount. HP: $hp")
     }
 
-    open fun performAction(action: String, target: Gegner) {
+    open fun performAction(action: String, target: Held) {
         when (action) {
             "attack" -> target.takeDamage(10) // Basisangriff
             "heal" -> this.heal(15) // Selbstheilung
@@ -23,6 +23,9 @@ open class Held(val name: String, var hp: Int, val maxHp: Int, var isProtected: 
         }
     }
 
+    fun displayInfo() {
+        println("$name - HP: $hp")
+    }
 
     override fun toString(): String{
         return """
