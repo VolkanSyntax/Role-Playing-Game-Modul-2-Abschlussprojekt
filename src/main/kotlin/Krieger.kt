@@ -16,16 +16,19 @@ class Krieger( name: String,  hp: Int): Held(name, hp, hp) {
             "Schutzpanzer"->{
                 println("$name nutzt den Schutzpanzer.")
                 isProtected = true
-
             }
             else -> super.performAction(action, target)
         }
     }
 
 
+    override fun getActionNames(): List<String> {
+        return listOf("Schwert Attacke","In rage","Elexier","Schutzpanzer")
+    }
 
-
-
+    override fun increaceAttacDamage(percent:Int){
+        attacDamage += (attacDamage/100*percent).toInt()
+    }
 
 
 }

@@ -1,4 +1,5 @@
-open class Held(val name: String, var hp: Int, val maxHp: Int, var isProtected: Boolean = false)  {
+open class Held(val name: String, var hp: Int, val maxHp: Int, var isProtected: Boolean = false, var isVerflucht: Boolean = false)  {
+
     fun takeDamage(damage: Int) {
         if(!isProtected){
             hp = (hp - damage).coerceAtLeast(0)
@@ -8,6 +9,21 @@ open class Held(val name: String, var hp: Int, val maxHp: Int, var isProtected: 
         }
 
     }
+
+    fun fluch(percent: Int = 10){
+
+        var condition = (100/maxHp*hp)<=20
+        if((100/maxHp*hp)>20){
+            isVerflucht=true
+            hp= (hp*0.9).toInt().coerceAtLeast((maxHp*0.2).toInt())
+            println("$name erleidet einen Fluch.Verbleibende HP: $hp")
+        }else{
+            isVerflucht=false
+        }
+
+    }
+
+
     fun isAlive(): Boolean = hp > 0
 
     fun heal(amount: Int) {
@@ -23,6 +39,12 @@ open class Held(val name: String, var hp: Int, val maxHp: Int, var isProtected: 
         }
     }
 
+
+    open fun getActionNames(): List<String>{
+        return emptyList()
+    }
+
+   open fun increaceAttacDamage(percent:Int){}
 
     override fun toString(): String{
         return """

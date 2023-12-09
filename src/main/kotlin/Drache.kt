@@ -1,23 +1,17 @@
-class Drache( name: String,  hp: Int): Held(name, hp, hp) {
-    var attacDamage = 70
-    var healAmount = 10
+class Drache( name: String,  hp: Int): Gegner(name, hp, hp) {
+    var attacDamage = 50
+    var healAmount = 50
     var attacDamage2 = 100
+    var feueratemDamage = 20
 
 
-    override fun performAction(action: String, target: Gegner) {
-        isProtected = false
+    override fun performAction(action: String, target: Held) {
         when (action) {
-            "Schwert Attacke" -> target.takeDamage(attacDamage)
-            "In rage" ->{
-                this.takeDamage(100000)
-                target.takeDamage(attacDamage2)
-            }
-            "Elexier" -> this.heal(healAmount)
-            "Schutzpanzer"->{
-                println("$name nutzt den Schutzpanzer.")
-                isProtected = true
-
-            }
+            "Feuer Ball" -> target.takeDamage(attacDamage)
+            "Fluegelschlag" -> target.takeDamage(attacDamage2)
+            "Feueratem" -> this.takeDamage(feueratemDamage)
+            "Heilender Feuer Stein" -> this.heal(healAmount)
+            "Fluch"-> target.fluch()
             else -> super.performAction(action, target)
         }
     }

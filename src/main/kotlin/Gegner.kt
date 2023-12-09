@@ -23,8 +23,8 @@ open class Gegner(val name: String, var hp: Int, val maxHp: Int, var isProtected
         }
     }
 
-    fun displayInfo() {
-        println("$name - HP: $hp")
+    open fun getActionNames(): List<String>{
+        return emptyList()
     }
 
     override fun toString(): String{

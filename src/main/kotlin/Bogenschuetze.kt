@@ -23,4 +23,11 @@ class Bogenschuetze(name: String, hp: Int): Held(name, hp, hp) {
             else -> super.performAction(action, target)
         }
     }
+    override fun getActionNames(): List<String> {
+        return listOf("Bogen Attacke","Wurf Schleuder","Schlafen","Schutz Mantel")
+    }
+
+    override fun increaceAttacDamage(percent:Int){
+        attacDamage += (attacDamage/100*percent).toInt()
+    }
 }

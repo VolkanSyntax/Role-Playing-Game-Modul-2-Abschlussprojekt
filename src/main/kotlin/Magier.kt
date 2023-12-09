@@ -21,7 +21,12 @@ class Magier( name: String,  hp: Int): Held(name, hp, hp) {
             else -> super.performAction(action, target)
         }
     }
+    override fun getActionNames(): List<String> {
+        return listOf("ZauberSturm","TodesZauber","HeilZauber","ZauberSchild")
+    }
 
-
+    override fun increaceAttacDamage(percent:Int){
+        attacDamage += (attacDamage/100*percent).toInt()
+    }
 
 }

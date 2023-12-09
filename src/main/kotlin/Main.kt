@@ -1,6 +1,7 @@
+import kotlin.reflect.typeOf
 
 
-    fun main() {
+fun main() {
         // Helden
         val magier = Magier("Magier", 100)
         val bogenschuetze = Bogenschuetze("Bogenschuetze", 100)
@@ -10,7 +11,7 @@
         val helden: MutableList<Held> = mutableListOf(magier,bogenschuetze,krieger)
 
         // Gegner
-        val drache = Krieger("Drache",500)
+        val drache = Drache("Drache",500)
         val gegnerListe: MutableList<Gegner> = mutableListOf(drache)
 
         spielRunde(helden, gegnerListe)
@@ -25,12 +26,13 @@
         var gameOver: Boolean = false
         // Rundencounter
         var round: Int = 1
-
+        val beutel = Beutel()
+        var beschworungGenutzt = false
 
         while (!gameOver){
             println("---Runde $round!---")
             // Logik, um den Gegner Helfer zu beschwören
-            //rufeHelfer(round, gegnerListe)
+
 
             // print alle helden in meinem team und ihre aktionen --> ueber liste der helden iterieren
             println("--Unser Team:--")
@@ -43,27 +45,39 @@
             lebendeGegner.forEach { println(it) }
 
 
-            lebendeGegner = aktionenHelden(lebendeHelden, lebendeGegner)
+            lebendeGegner = aktionenHelden(lebendeHelden, lebendeGegner,beutel)
             // gegner greifen an: exact das gleiche
             // hardcode, keine richtige Logik
 
-            lebendeHelden = aktionenGegner(lebendeGegner, lebendeHelden)
-            lebendeHelden = helden.filter { it.isAlive() }.toMutableList()
+            //lebendeHelden = aktionenGegner(lebendeGegner, lebendeHelden,beschworungGenutzt)
+            //lebendeHelden = helden.filter { it.isAlive() }.toMutableList()
+
+            if (!beschworungGenutzt){
+                if ((1..6).random()==6){
+                    beschwoereHelfer( gegnerListe)
+                    beschworungGenutzt=true
+                }else{
+                    lebendeHelden = aktionenGegner(lebendeGegner, lebendeHelden)
+                    lebendeHelden = helden.filter { it.isAlive() }.toMutableList()
+                }
+
+            }else {
+                lebendeHelden = aktionenGegner(lebendeGegner, lebendeHelden)
+                lebendeHelden = helden.filter { it.isAlive() }.toMutableList()
+            }
 
             println("Runde $round beendet!")
             println("ggf. Status von allen ausdrucken...")
-            gameOver = gameOver(helden, lebendeGegner, gameOver)
+            gameOver = gameOver(lebendeHelden, lebendeGegner, gameOver)
             round++
         }
-        println("Spiel beendet! Alle Gegner sind besiegt!") // Logik: helden oder gegner tot?
+        println("Spiel beendet!") // Logik: helden oder gegner tot?
 
     }
 
-    private fun rufeHelfer(round: Int, gegnerListe: MutableList<Pokemon>) {
-        if (round == 2) {
-            println("Das Gegner Team holt sich in der $round. Runde einen Helfer dazu.....")
-            gegnerListe.add(Pokemon("Helfer-Pokemon Mauzi"))
-        }
+    private fun beschwoereHelfer(gegnerListe: MutableList<Gegner>) {
+            println("Der Drache beschwort einen Babydrachen")
+            gegnerListe.add(BabyDrache("Babydrache",150))
     }
 
     private fun gameOver(helden: MutableList<Held>, lebendeGegner: MutableList<Gegner>, gameOver: Boolean): Boolean {
@@ -78,74 +92,59 @@
         return gameOver1
     }
 
-    private fun aktionenHelden(helden: MutableList<Held>, lebendeGegner: MutableList<Gegner>): MutableList<Gegner> {
+    //fertig
+    private fun aktionenHelden(helden: MutableList<Held>, lebendeGegner: MutableList<Gegner>, beutel: Beutel): MutableList<Gegner> {
         var lebendeGegner1 = lebendeGegner
         var inputValid = false
+        var beutelUsed = false
+
         // schleife, bis alle helden angegriffen haben:
         // print: "1./2./3. held soll angreifen, welche attacke?"
         for (held in helden) {
-            inputValid = false
-            println("${held.name} soll angreifen. Wähle die Attacke per Zahleneingabe aus!")
-
-            while (!inputValid){
-                println("[1] => Tackle, [2] => Heuler, etc")
-                try {
-                    val choice = readln().toInt()
-                    when (choice) {
-                        1 -> {
-                            held.tackle(lebendeGegner1.first())
-                            // angeben, dass ggf gegner bereits gestorben ist
-                            lebendeGegner1 = lebendeGegner1.filter { !it.isDead }.toMutableList()
-                            inputValid = true
-                        }
-                        // 2 -> held.heuler(gegner.random())
-                        // etc weitere attacken
-                        else -> {
-                            println("Falsche Zahl eingegeben, gib eine gültige Zahl ein!")
-                            // inputValid bleibt hier false -> Schleife geht von vorne los
-                        }
-                    }
-                } catch (e: Exception) {
-                    println("Bitte eine Zahl eingeben... Probier's nochmal")
-                }
+            if (lebendeGegner1.isEmpty()){
+                return lebendeGegner1
             }
-        }
-        return lebendeGegner1
-    }
-
-
-
-    private fun aktionenGegner(helden: MutableList<Gegner>, lebendeGegner: MutableList<Held>): MutableList<Held> {
-        var lebendeGegner1 = lebendeGegner
-        var inputValid = false
-        // schleife, bis alle helden angegriffen haben:
-        // print: "1./2./3. held soll angreifen, welche attacke?"
-        for (held in helden) {
             inputValid = false
-            println("${held.name} soll angreifen. Wähle die Attacke per Zahleneingabe aus!")
-
-            while (!inputValid){
-                println("[1] => Tackle, [2] => Heuler, etc")
-                try {
-                    val choice = readln().toInt()
-                    when (choice) {
-                        1 -> {
-                            held.tackle(lebendeGegner1.first())
-                            // angeben, dass ggf gegner bereits gestorben ist
-                            lebendeGegner1 = lebendeGegner1.filter { !it.isDead }.toMutableList()
-                            inputValid = true
-                        }
-                        // 2 -> held.heuler(gegner.random())
-                        // etc weitere attacken
-                        else -> {
-                            println("Falsche Zahl eingegeben, gib eine gültige Zahl ein!")
-                            // inputValid bleibt hier false -> Schleife geht von vorne los
-                        }
-                    }
-                } catch (e: Exception) {
-                    println("Bitte eine Zahl eingeben... Probier's nochmal")
-                }
+            var chooseActionOrBeutel = 1
+            if(!beutelUsed){
+                println("Druecke 1 um eine Aktion auszuwaehlen oder 2  um dem Beutel zu nutzen  ")
+                chooseActionOrBeutel = readln().toInt()
             }
+            if (chooseActionOrBeutel==2){
+
+                if (!beutel.isEmpty()){
+                    println("Bitte waehle dir etwas von dem Beutel aus")
+                    println(beutel)
+                    var beutelChoose = readln().toInt()
+                    if(beutelChoose==1){
+                        beutel.heiltrankNutzen(held)
+                    }else{
+                        beutel.vitaminNutzen(held)
+                    }
+                    beutelUsed=true
+                }
+
+            }else{
+                println("${held.name} soll angreifen. Wähle die Attacke per Zahleneingabe aus!")
+
+                while (!inputValid){
+
+                    var heroActions = held.getActionNames()
+                    for ( i in heroActions.indices){
+                        println("${i + 1} ${heroActions[i]}")
+                    }
+
+                    val choice = readln().toInt()
+                    if (choice > 0 && choice < (heroActions.size-1)){
+                        held.performAction(heroActions[choice-1], lebendeGegner1.last())
+                        inputValid = true
+                    }else{
+                        println("Falsche Zahl eingegeben, gib eine gültige Zahl ein!")
+                    }
+                }
+
+            }
+
         }
         return lebendeGegner1
     }
@@ -153,53 +152,65 @@
 
 
 
-
-
-    /*
-        fun main() {
-
-
-            val endgegner = Gegner("Endgegner", 150)
-            endgegner.actions.add(Gegner.AttackAction(30))
-            endgegner.actions.add(Gegner.HealAction(10))
-            endgegner.actions.add(Gegner.ProtectAction())
-
-            var roundnr = 1
-            var gamefinish = false
-            while (!gamefinish){
-                println("Bitte wähle eine Aktion aus")
-                var input = 0
-                do {
-                    for (i in  held.getActionNames().indices){
-                        var actionsList = held.getActionNames()
-                        println(i.toString() + " -> "+ actionsList[i])
-                    }
-                    try {
-                        input = readln().toInt()
-                    } catch(e: Exception) {
-                        println("Gebe die richtige Nummer ein")
-                    }
-                } while (input !in held.getActionNames().indices)
-                held.performAction(held,endgegner,input)
-
-
-
-                gamefinish = true
+    private fun aktionenGegner(
+        gegner: MutableList<Gegner>,
+        lebendeHelden: MutableList<Held>,
+    ): MutableList<Held> {
+        var lebendeHelden1 = lebendeHelden
+        var inputValid = false
+        // schleife, bis alle helden angegriffen haben:
+        // print: "1./2./3. held soll angreifen, welche attacke?"
+        for (held in lebendeHelden){
+            if (held.isVerflucht){
+                held.fluch()
             }
-
-
-            /*
-            held.displayInfo()
-            endgegner.displayInfo()
-
-            held.performAction(held,endgegner,0) // Magier greift Krieger an
-            endgegner.performAction(endgegner,held, 2) // Krieger wirkt Schutzzauber auf Magier
-
-
-
-            held.displayInfo()
-            endgegner.displayInfo()
-            */
         }
+        for (g in gegner) {
+            if (lebendeHelden1.isEmpty()){
+                return lebendeHelden1
+            }
+            inputValid = false
+            println("${g.name} greift an.")
 
-    */
+            while (!inputValid){
+
+                if (g is Drache){
+                    val choice = (1..5).random()
+                    if (choice==1){
+                        g.performAction("Feuer Ball",lebendeHelden1.first())
+                    }else if(choice==2){
+                        g.performAction("Fluegelschlag",lebendeHelden1.first())
+                    }else if(choice==3){
+                        for (held in lebendeHelden){
+                            g.performAction("Feueratem",held)
+                        }
+                    }else if(choice==4){
+                        g.performAction("Heilender Feuer Stein",lebendeHelden1.first())
+                    }else if(choice==5){
+                        g.performAction("Fluch",lebendeHelden1.random())
+                    }
+                    inputValid = true
+                }else{
+                    val choice = (1..4).random()
+                    if (choice==1){
+                        g.performAction("Babyschrei",lebendeHelden1.first())
+                    }else if(choice==2){
+                        g.performAction("Babypups",lebendeHelden1.first())
+                    }else if(choice==3){
+                        for (held in lebendeHelden){
+                            g.performAction("Drachenmilch",held)
+                        }
+                    }else if(choice==4){
+                        g.performAction("Fluegelschutz",lebendeHelden1.first())
+                    }
+                    inputValid = true
+                }
+
+
+            }
+        }
+        return lebendeHelden
+    }
+
+
+
