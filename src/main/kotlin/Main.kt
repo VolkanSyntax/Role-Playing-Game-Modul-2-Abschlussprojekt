@@ -1,4 +1,3 @@
-import kotlin.reflect.typeOf
 
 
 fun main() {
@@ -11,7 +10,7 @@ fun main() {
         val helden: MutableList<Held> = mutableListOf(magier,bogenschuetze,krieger)
 
         // Gegner
-        val drache = Drache("Drache",500)
+        val drache = Drache("Drache",600)
         val gegnerListe: MutableList<Gegner> = mutableListOf(drache)
 
         spielRunde(helden, gegnerListe)
@@ -21,8 +20,7 @@ fun main() {
 
 
     fun spielRunde(helden: MutableList<Held>, gegnerListe: MutableList<Gegner>) {
-        // Game Loop Vorbereitung
-        // Variable, anhand der wir pruefen, ob das spiel vorbei ist
+
         var gameOver: Boolean = false
         // Rundencounter
         var round: Int = 1
@@ -31,14 +29,15 @@ fun main() {
 
         while (!gameOver){
             println("---Runde $round!---")
-            // Logik, um den Gegner Helfer zu beschwören
 
 
-            // print alle helden in meinem team und ihre aktionen --> ueber liste der helden iterieren
             println("--Unser Team:--")
             // print alle helden in meinem team und ihre aktionen --> ueber liste der helden iterieren
+
             var lebendeHelden = helden.filter { it.isAlive() }.toMutableList()
             lebendeHelden.forEach { println(it) }
+
+
             // print alle gegner --> ueber liste der gegner iterieren
             println("--Gegner Team:--")
             var lebendeGegner = gegnerListe.filter { it.isAlive()}.toMutableList() // nur lebende Gegner werden rausgefiltert
@@ -46,14 +45,10 @@ fun main() {
 
 
             lebendeGegner = aktionenHelden(lebendeHelden, lebendeGegner,beutel)
-            // gegner greifen an: exact das gleiche
-            // hardcode, keine richtige Logik
 
-            //lebendeHelden = aktionenGegner(lebendeGegner, lebendeHelden,beschworungGenutzt)
-            //lebendeHelden = helden.filter { it.isAlive() }.toMutableList()
 
             if (!beschworungGenutzt){
-                if ((1..6).random()==6){
+                if ((1..3).random()==3){
                     beschwoereHelfer( gegnerListe)
                     beschworungGenutzt=true
                 }else{
@@ -98,8 +93,7 @@ fun main() {
         var inputValid = false
         var beutelUsed = false
 
-        // schleife, bis alle helden angegriffen haben:
-        // print: "1./2./3. held soll angreifen, welche attacke?"
+
         for (held in helden) {
             if (lebendeGegner1.isEmpty()){
                 return lebendeGegner1
@@ -135,7 +129,7 @@ fun main() {
                     }
 
                     val choice = readln().toInt()
-                    if (choice > 0 && choice < (heroActions.size-1)){
+                    if (choice > 0 && choice <= (heroActions.size)){
                         held.performAction(heroActions[choice-1], lebendeGegner1.last())
                         inputValid = true
                     }else{
@@ -150,16 +144,10 @@ fun main() {
     }
 
 
-
-
-    private fun aktionenGegner(
-        gegner: MutableList<Gegner>,
-        lebendeHelden: MutableList<Held>,
-    ): MutableList<Held> {
+    private fun aktionenGegner(gegner: MutableList<Gegner>, lebendeHelden: MutableList<Held>, ): MutableList<Held> {
         var lebendeHelden1 = lebendeHelden
         var inputValid = false
-        // schleife, bis alle helden angegriffen haben:
-        // print: "1./2./3. held soll angreifen, welche attacke?"
+
         for (held in lebendeHelden){
             if (held.isVerflucht){
                 held.fluch()

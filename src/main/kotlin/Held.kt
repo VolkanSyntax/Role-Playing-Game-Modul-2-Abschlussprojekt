@@ -1,5 +1,14 @@
 open class Held(val name: String, var hp: Int, val maxHp: Int, var isProtected: Boolean = false, var isVerflucht: Boolean = false)  {
 
+    /*
+    .coerceAtLeast(0) =>
+    if((hp - damage)<0){
+        hp = 0
+    }else{
+        hp = (hp - damage)
+    }
+
+     */
     fun takeDamage(damage: Int) {
         if(!isProtected){
             hp = (hp - damage).coerceAtLeast(0)
@@ -11,8 +20,6 @@ open class Held(val name: String, var hp: Int, val maxHp: Int, var isProtected: 
     }
 
     fun fluch(percent: Int = 10){
-
-        var condition = (100/maxHp*hp)<=20
         if((100/maxHp*hp)>20){
             isVerflucht=true
             hp= (hp*0.9).toInt().coerceAtLeast((maxHp*0.2).toInt())
@@ -26,18 +33,22 @@ open class Held(val name: String, var hp: Int, val maxHp: Int, var isProtected: 
 
     fun isAlive(): Boolean = hp > 0
 
+
+    /*
+    .coerceAtMost(maxHp) =>
+    if((hp + amount)>maxHp){
+        hp = maxHp
+    }else{
+        hp = (hp + amount)
+    }
+
+     */
     fun heal(amount: Int) {
         hp = (hp + amount).coerceAtMost(maxHp)
         println("$name heilt sich um $amount. HP: $hp")
     }
 
-    open fun performAction(action: String, target: Gegner) {
-        when (action) {
-            "attack" -> target.takeDamage(10) // Basisangriff
-            "heal" -> this.heal(15) // Selbstheilung
-            else -> println("Diese Action gibt es nicht")
-        }
-    }
+    open fun performAction(action: String, target: Gegner) {}
 
 
     open fun getActionNames(): List<String>{

@@ -7,17 +7,20 @@ class Drache( name: String,  hp: Int): Gegner(name, hp, hp) {
 
     override fun performAction(action: String, target: Held) {
         when (action) {
-            "Feuer Ball" -> target.takeDamage(attacDamage)
-            "Fluegelschlag" -> target.takeDamage(attacDamage2)
-            "Feueratem" -> this.takeDamage(feueratemDamage)
+            "Feuer Ball" ->{
+                println("$name speit einen Feuer Ball")
+                target.takeDamage(attacDamage)
+            }
+            "Fluegelschlag" ->{
+                println("$name führt einen Feuerschlag aus")
+                target.takeDamage(attacDamage2)
+            }
+            "Feueratem" -> target.takeDamage(feueratemDamage)
             "Heilender Feuer Stein" -> this.heal(healAmount)
             "Fluch"-> target.fluch()
             else -> super.performAction(action, target)
         }
     }
-
-
-
 
 
 }

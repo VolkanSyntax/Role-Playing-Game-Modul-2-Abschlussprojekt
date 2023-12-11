@@ -9,7 +9,7 @@ class Magier( name: String,  hp: Int): Held(name, hp, hp) {
         when (action) {
             "ZauberSturm" -> target.takeDamage(attacDamage)
             "TodesZauber" ->{
-                this.takeDamage(100000)
+                this.takeDamage(1000)
                 target.takeDamage(attacDamage2)
             }
             "HeilZauber" -> this.heal(healAmount)

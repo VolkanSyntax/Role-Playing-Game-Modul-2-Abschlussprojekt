@@ -11,7 +11,7 @@ class Bogenschuetze(name: String, hp: Int): Held(name, hp, hp) {
         when (action) {
             "Bogen Attacke" -> target.takeDamage(attacDamage + Random.nextInt(50))
             "Wurf Schleuder" ->{
-                this.takeDamage(100000)
+                this.takeDamage(1000)
                 target.takeDamage(attacDamage2)
             }
             "Schlafen" -> this.heal(healAmount)
