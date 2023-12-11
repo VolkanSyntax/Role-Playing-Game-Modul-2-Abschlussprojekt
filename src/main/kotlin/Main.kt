@@ -62,7 +62,6 @@ fun main() {
             }
 
             println("Runde $round beendet!")
-            println("ggf. Status von allen ausdrucken...")
             gameOver = gameOver(lebendeHelden, lebendeGegner, gameOver)
             round++
         }
