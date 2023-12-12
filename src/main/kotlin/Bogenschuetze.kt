@@ -9,7 +9,7 @@ class Bogenschuetze(name: String, hp: Int): Held(name, hp, hp) {
     override fun performAction(action: String, target: Gegner) {
         isProtected = false
         when (action) {
-            "Bogen Attacke" -> target.takeDamage(attacDamage + Random.nextInt(50))
+            "Bogen Attacke" -> target.takeDamage(attacDamage + Random.nextInt(50)) // das hier attacke addieren mit random 0..bis 50 punkte nimmt
             "Wurf Schleuder" ->{
                 this.takeDamage(1000)
                 target.takeDamage(attacDamage2)

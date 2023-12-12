@@ -14,7 +14,7 @@ class Beutel {
     fun heiltrankNutzen(target: Held){
         // schauen ob noch Heiltränke da sind
         if (anzahlHeiltraenke > 0) {
-            // benutzen = ein Held bekommt 20% mehr HP 51 26 25
+            // benutzen = ein Held bekommt 20%
             target.heal((target.maxHp / 2).toInt())
             // benutzten Heiltrank wegschmeißen
             anzahlHeiltraenke--
