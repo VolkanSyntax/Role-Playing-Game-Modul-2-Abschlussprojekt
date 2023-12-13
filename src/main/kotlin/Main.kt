@@ -151,10 +151,12 @@ private fun beschwoereHelfer(gegnerListe: MutableList<Gegner>) {
              */
             inputValid = false
             var chooseActionOrBeutel = 1
+
             if(!beutelUsed){ // wenn die beutel 1 gewählt frag nicht wieder.
                 println("$YELLOW Druecke 1 um eine Aktion auszuwaehlen oder 2  um dem Beutel zu nutzen $RESET ")
                 chooseActionOrBeutel = readln().toInt()
             }
+
             if (chooseActionOrBeutel==2){
 
                 if (!beutel.isEmpty()){ // wenn beutel leer ist nicht genutz werden wenn nicht leer ist
@@ -244,7 +246,7 @@ private fun beschwoereHelfer(gegnerListe: MutableList<Gegner>) {
             Ejderha için farklı aksiyonlar (performAction) tanımlanmış: "Feuer Ball", "Fluegelschlag", "Feueratem", "Heilender Feuer Stein", "Fluch".
             Eğer düşman ejderha değilse, farklı bir dizi aksiyon seçilir: "Babyschrei", "Babypups", "Drachenmilch", "Fluegelschutz".
              */
-            while (!inputValid){
+            while (!inputValid){ //für flucht
 
                 if (g is Drache){
                     val choice = (1..5).random()

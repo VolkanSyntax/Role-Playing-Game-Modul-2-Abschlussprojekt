@@ -2,13 +2,6 @@ open class Held(val name: String, var hp: Int, val maxHp: Int, var isProtected: 
                                                // maximal Limit nimmt maxHp
 
     fun takeDamage(damage: Int) {
-
-        val CYAN = "\u001B[36m"
-        val RED = "\u001B[31m"
-        val YELLOW = "\u001B[33m"
-        val BLUE = "\u001B[34m"
-        val RESET = "\u001B[0m"
-
                           // takeDamage ist auf deutsch schadenNehmen
         if(!isProtected){ // (!isProtected) <-- wenn ist kein  geschützt hat
             hp = (hp - damage).coerceAtLeast(0) // helden hp - hp zieht schaden und wenn gebliebene hp punkte  unter 0 wenn minus  ist gibt wieder diesem code .coerceAtleast wieder 0
@@ -45,12 +38,6 @@ Koşul karşılanmazsa, karakter "lanetlenmemiş" olarak işaretlenir (isVerfluc
      */
     //Das Habe Ich ChatGBT Genommen !!!
     fun fluch(percent: Int = 10){
-        val CYAN = "\u001B[36m"
-        val RED = "\u001B[31m"
-        val YELLOW = "\u001B[33m"
-        val BLUE = "\u001B[34m"
-        val RESET = "\u001B[0m"
-                                1
         // parameter ist %10 prozent  eingegeben..
         if((100/maxHp*hp)>20){ // if rechnet akutellen hp zu seinen maxHp übeprüft ob dieses Verhältnis mehr als 20% beträgt.Wenn die Gesundheit des Helden mehr als 20% seiner maximalen Gesundheitspunkte beträgt, wird dieser Block ausgeführt.
             isVerflucht=true // Diese Zeile zeigt an, dass der Held verflucht ist (isVerflucht). Das heißt, der Fluch ist aktiv.
@@ -100,6 +87,13 @@ Koşul karşılanmazsa, karakter "lanetlenmemiş" olarak işaretlenir (isVerfluc
         """.trimIndent()
     }
 
-}
 
+
+    val CYAN = "\u001B[36m"
+    val RED = "\u001B[31m"
+    val YELLOW = "\u001B[33m"
+    val BLUE = "\u001B[34m"
+    val RESET = "\u001B[0m"
+
+}
 
