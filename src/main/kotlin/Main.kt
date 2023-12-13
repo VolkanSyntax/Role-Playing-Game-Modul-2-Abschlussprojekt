@@ -20,11 +20,6 @@ fun main() {
 
     }
 
-       val RED = "\u001B[31m"
-       val YELLOW = "\u001B[33m"
-       val BLUE = "\u001B[34m"
-       val RESET = "\u001B[0m"
-
     fun spielRunde(helden: MutableList<Held>, gegnerListe: MutableList<Gegner>) {
 
         var gameOver: Boolean = false  // Verfolgt, ob das Spiel beendet ist oder nicht. Anfangs false // Oyunun bitip bitmediğini takip eder. Başlangıçta false
@@ -291,3 +286,8 @@ private fun beschwoereHelfer(gegnerListe: MutableList<Gegner>) {
 
 
 
+
+             val RED = "\u001B[31m"
+             val YELLOW = "\u001B[33m"
+             val BLUE = "\u001B[34m"
+             val RESET = "\u001B[0m"
