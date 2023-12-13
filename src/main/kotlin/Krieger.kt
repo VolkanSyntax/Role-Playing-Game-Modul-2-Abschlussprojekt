@@ -12,7 +12,7 @@ class Krieger( name: String,  hp: Int): Held(name, hp, hp) {
                 this.takeDamage(100)
                 target.takeDamage(attacDamage2)
             }
-            "Elexier" -> this.heal(healAmount)
+            "Elixier" -> this.heal(healAmount)
             "Schutzpanzer"->{
                 println("$name nutzt den Schutzpanzer.")
                 isProtected = true
@@ -23,7 +23,7 @@ class Krieger( name: String,  hp: Int): Held(name, hp, hp) {
 
 
     override fun getActionNames(): List<String> {
-        return listOf("Schwert Attacke","In rage","Elexier","Schutzpanzer")
+        return listOf("Schwert Attacke","In rage","Elixier","Schutzpanzer")
     }
 
     override fun increaceAttacDamage(percent:Int){

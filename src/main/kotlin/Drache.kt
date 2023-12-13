@@ -4,10 +4,11 @@ class Drache( name: String,  hp: Int): Gegner(name, hp, hp) {
     var attacDamage2 = 100
     var feueratemDamage = 20
 
+    val RED = "\u001B[31m"
+    val RESET = "\u001B[0m"
 
     override fun performAction(action: String, target: Held) {
-        val RED = "\u001B[31m"
-        val RESET = "\u001B[0m"
+
 
         when (action) {
             "Feuer Ball" ->{
