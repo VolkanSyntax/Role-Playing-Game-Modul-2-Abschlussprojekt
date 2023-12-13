@@ -12,11 +12,16 @@ class Drache( name: String,  hp: Int): Gegner(name, hp, hp) {
                 target.takeDamage(attacDamage)
             }
             "Fluegelschlag" ->{
-                println("$name führt einen Feuerschlag aus")
+                println("$name führt einen Fluegelschlag aus")
                 target.takeDamage(attacDamage2)
             }
-            "Feueratem" -> target.takeDamage(feueratemDamage)
-            "Heilender Feuer Stein" -> this.heal(healAmount)
+            "Feueratem" -> {
+                println("$name führte bei allen Helden einen Feueratem aus")
+                target.takeDamage(feueratemDamage)
+            }
+            "Heilender Feuer Stein" ->{
+                this.heal(healAmount)
+            }
             "Fluch"-> target.fluch()
             else -> super.performAction(action, target)
         }

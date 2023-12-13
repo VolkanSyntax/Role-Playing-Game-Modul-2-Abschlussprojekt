@@ -160,7 +160,7 @@ fun main() {
                                                                                                      // Kullanıcının girdiği sayının geçerli olup olmadığını kontrol eder. Sayı 0'dan büyük ve heroActions listesinin boyutundan küçük veya eşitse geçerlidir.
                         held.performAction(heroActions[choice-1], lebendeGegner1.last()) // Wenn eine gültige Auswahl getroffen wird, ruft es die Methode performAction des held-Objekts auf. Diese Methode nimmt die gewählte Aktion und ein Ziel (hier lebendeGegner1.last()) entgegen
                         // Geçerli bir seçim yapıldığında, held nesnesinin performAction metodunu çağırır. Bu metod, seçilen eylemi ve bir hedefi (burada lebendeGegner1.last()) alır.
-                        inputValid = true // Setzt die Variable inputValid auf true, wenn eine gültige Eingabe erfolgt ist, wodurch die Schleife beendet wird. Geçerli bir girdi alındığında inputValid değişkenini true olarak ayarlar, böylece döngü sona erer
+                        inputValid = true      // Setzt die Variable inputValid auf true, wenn eine gültige Eingabe erfolgt ist, wodurch die Schleife beendet wird. Geçerli bir girdi alındığında inputValid değişkenini true olarak ayarlar, böylece döngü sona erer
                     }else{
                         println("Falsche Zahl eingegeben, gib eine gültige Zahl ein!")
                     }
