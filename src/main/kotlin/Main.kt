@@ -41,10 +41,21 @@ fun main() {
                      "      ╔═╗┌─┐┬  ┌┬┐┌─┐┌┐┌  ╔═╗┬ ┬┌┐┌┌┬┐┌─┐─┐ ┬      \n" +
                      "      ║ ╦│ ││   ││├┤ │││  ╚═╗└┬┘│││ │ ├─┤┌┴┬┘      \n" +
                      "      ╚═╝└─┘┴─┘─┴┘└─┘┘└┘  ╚═╝ ┴ ┘└┘ ┴ ┴ ┴┴ └─      \n$RESET")
-                     Thread.sleep(1500)
+                     Thread.sleep(1800)
+
+        println("""
+            ${YELLOW}Willkommen bei Golden Syntax! 
+            Ihre Helden: ein Zauberer, ein Bogenschütze und ein Krieger. 
+            Ihre Aufgabe: gegen einen furchterregenden Drachen kämpfen. 
+            Aber vergessen Sie nicht, der Drache kann nur einmal, genau einen Babydrachen rufen. 
+            Ihre Intelligenz und Fähigkeiten werden Sie in diesem epischen Kampf zum Sieg führen. 
+            Sind Sie bereit? 
+            Das Abenteuer beginnt!$RESET
+             """.trimIndent())
+           Thread.sleep(11000)
 
         while (!gameOver){ // Die Schleife while (!gameOver) läuft, solange gameOver false ist. In jeder Runde // while (!gameOver) döngüsü, gameOver true olana kadar devam eder. Her turda
-            println("$YELLOW---Runde $round!---$RESET\n")
+            println("\n$YELLOW---Runde $round!---$RESET\n")
 
             println("$BLUE--Unser Team:--$RESET") // println alle lebendem helden MutableListe nochmal
             var lebendeHelden = helden.filter { it.isAlive() }.toMutableList() // und filtert lebenHelden liste Wenn  im leben zeigt das in MutableList
@@ -97,7 +108,8 @@ fun main() {
     }
 
 
-    private fun beschwoereHelfer(gegnerListe: MutableList<Gegner>) {
+
+private fun beschwoereHelfer(gegnerListe: MutableList<Gegner>) {
 
 
             println("Der $RED Drache $RESET beschwort einen $RED Babydrachen$RESET")
