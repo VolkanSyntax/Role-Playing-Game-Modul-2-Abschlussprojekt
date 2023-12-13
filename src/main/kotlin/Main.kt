@@ -1,3 +1,4 @@
+import java.lang.NumberFormatException
 
 
 fun main() {
@@ -184,15 +185,28 @@ private fun beschwoereHelfer(gegnerListe: MutableList<Gegner>) {
                         println("$BLUE${i + 1} ${heroActions[i]}$RESET") // Druckt jede Aktion und ihre entsprechende Nummer aus. Mit i + 1 beginnt die Nummerierung bei 1 // Her bir eylemi ve onun karşılık gelen numarasını yazdırır. i + 1 ile numaralandırma 1'den başlar
                     }
 
-                    val choice = readln().toInt() // Fordert den Benutzer auf, eine Zahl einzugeben und konvertiert diese Eingabe in einen Integer // Kullanıcıdan bir sayı girmesini isteyerek, bu girdiyi tam sayıya (Int) çevirir.
-                    if (choice > 0 && choice <= (heroActions.size)){ // Überprüft, ob die Eingabe des Benutzers gültig ist. Die Zahl ist gültig, wenn sie größer als 0 und kleiner oder gleich der Größe der heroActions-Liste ist
-                                                                                                     // Kullanıcının girdiği sayının geçerli olup olmadığını kontrol eder. Sayı 0'dan büyük ve heroActions listesinin boyutundan küçük veya eşitse geçerlidir.
-                        held.performAction(heroActions[choice-1], lebendeGegner1.last()) // Wenn eine gültige Auswahl getroffen wird, ruft es die Methode performAction des held-Objekts auf. Diese Methode nimmt die gewählte Aktion und ein Ziel (hier lebendeGegner1.last()) entgegen
-                        // Geçerli bir seçim yapıldığında, held nesnesinin performAction metodunu çağırır. Bu metod, seçilen eylemi ve bir hedefi (burada lebendeGegner1.last()) alır.
-                        inputValid = true      // Setzt die Variable inputValid auf true, wenn eine gültige Eingabe erfolgt ist, wodurch die Schleife beendet wird. Geçerli bir girdi alındığında inputValid değişkenini true olarak ayarlar, böylece döngü sona erer
-                    }else{
+
+                    try {
+
+                        val choice = readln().toInt() // Fordert den Benutzer auf, eine Zahl einzugeben und konvertiert diese Eingabe in einen Integer // Kullanıcıdan bir sayı girmesini isteyerek, bu girdiyi tam sayıya (Int) çevirir.
+
+                        if (choice > 0 && choice <= (heroActions.size)){ // Überprüft, ob die Eingabe des Benutzers gültig ist. Die Zahl ist gültig, wenn sie größer als 0 und kleiner oder gleich der Größe der heroActions-Liste ist
+                            // Kullanıcının girdiği sayının geçerli olup olmadığını kontrol eder. Sayı 0'dan büyük ve heroActions listesinin boyutundan küçük veya eşitse geçerlidir.
+                            held.performAction(heroActions[choice-1], lebendeGegner1.last()) // Wenn eine gültige Auswahl getroffen wird, ruft es die Methode performAction des held-Objekts auf. Diese Methode nimmt die gewählte Aktion und ein Ziel (hier lebendeGegner1.last()) entgegen
+                            // Geçerli bir seçim yapıldığında, held nesnesinin performAction metodunu çağırır. Bu metod, seçilen eylemi ve bir hedefi (burada lebendeGegner1.last()) alır.
+
+                            lebendeGegner1 = lebendeGegner1.filter { it.isAlive() }.toMutableList()
+                            inputValid = true      // Setzt die Variable inputValid auf true, wenn eine gültige Eingabe erfolgt ist, wodurch die Schleife beendet wird. Geçerli bir girdi alındığında inputValid değişkenini true olarak ayarlar, böylece döngü sona erer
+                        }else{
+                            println("Falsche Zahl eingegeben, gib eine gültige Zahl ein!")
+                        }
+                    }catch (e:NumberFormatException){
                         println("Falsche Zahl eingegeben, gib eine gültige Zahl ein!")
                     }
+
+
+
+
                 }
 
             }
@@ -263,6 +277,7 @@ private fun beschwoereHelfer(gegnerListe: MutableList<Gegner>) {
                     }else if(choice==5){
                         g.performAction("Fluch",lebendeHelden1.random())
                     }
+                    lebendeHelden1 =  lebendeHelden1.filter { it.isAlive() }.toMutableList()
                     inputValid = true
                 }else{
                     val choice = (1..4).random()
@@ -277,6 +292,7 @@ private fun beschwoereHelfer(gegnerListe: MutableList<Gegner>) {
                     }else if(choice==4){
                         g.performAction("Fluegelschutz",lebendeHelden1.first())
                     }
+                    lebendeHelden1 =  lebendeHelden1.filter { it.isAlive() }.toMutableList()
                     inputValid = true
                 }
 
