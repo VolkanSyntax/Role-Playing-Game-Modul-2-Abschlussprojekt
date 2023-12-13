@@ -10,15 +10,20 @@ fun main() {
         val helden: MutableList<Held> = mutableListOf(magier,bogenschuetze,krieger)
 
         // Gegner
-        val drache = Drache("Drache",500)
+        val drache = Drache("Drache",600)
+
         // Liste von Gegner // Drache // düsman Mutable liste olarak veriliyor
         val gegnerListe: MutableList<Gegner> = mutableListOf(drache)
+
 
         spielRunde(helden, gegnerListe) // Spiel Runde  helden und Gegner fängt an :)  // oyun Tur u  basliyor kahramanlar ve Düsmanlar..
 
     }
 
-
+       val RED = "\u001B[31m"
+       val YELLOW = "\u001B[33m"
+       val BLUE = "\u001B[34m"
+       val RESET = "\u001B[0m"
 
     fun spielRunde(helden: MutableList<Held>, gegnerListe: MutableList<Gegner>) {
 
@@ -27,10 +32,7 @@ fun main() {
         val beutel = Beutel() // Ein Objekt, das Gegenstände enthält, die Spieler verwenden können (vom Typ Beutel) // Oyuncuların kullanabileceği eşyaları içeren bir nesne (Beutel sınıfından)
         var beschworungGenutzt = false // Dies ist ein Zeichen, das überprüft, ob die Feinde zusätzliche Hilfe gerufen haben oder nicht // Düşmanların ekstra yardım çağırıp çağırmadığını kontrol eder
 
-        val RED = "\u001B[31m"
-        val YELLOW = "\u001B[33m"
-        val BLUE = "\u001B[34m"
-        val RESET = "\u001B[0m"
+
 
         println("$YELLOW\n" +
                      "╦ ╦┬┬  ┬  ┬┌─┌─┐┌┬┐┌┬┐┌─┐┌┐┌  ┬┌┬┐  ╔═╗┌─┐┬┌─┐┬    \n" +
@@ -44,13 +46,10 @@ fun main() {
         while (!gameOver){ // Die Schleife while (!gameOver) läuft, solange gameOver false ist. In jeder Runde // while (!gameOver) döngüsü, gameOver true olana kadar devam eder. Her turda
             println("$YELLOW---Runde $round!---$RESET\n")
 
-
             println("$BLUE--Unser Team:--$RESET") // println alle lebendem helden MutableListe nochmal
             var lebendeHelden = helden.filter { it.isAlive() }.toMutableList() // und filtert lebenHelden liste Wenn  im leben zeigt das in MutableList
             lebendeHelden.forEach { println(it) } // Dann wird die Information jedes noch lebenden Helden auf dem Bildschirm gedruckt. // Son olarak, hayatta olan her düşmanın bilgisi ekrana yazdırılır. Bu, oyuncunun hangi düşmanların
                                                   // Dies ermöglicht dem Spieler zu sehen, welche Helden noch im Spiel sind.           // hala oyun içinde olduğunu ve muhtemelen bir sonraki turda hangi düşmanlarla yüzleşeceğini görmesini sağlar.
-
-
 
             println("$RED--Gegner Team:--$RESET") // println alle lebendem Gegner MutableListe nochmal
             var lebendeGegner = gegnerListe.filter { it.isAlive()}.toMutableList() // und filtert lebenGegner liste Wenn  im leben zeigt das in MutableList
@@ -97,18 +96,15 @@ fun main() {
 
     }
 
+
     private fun beschwoereHelfer(gegnerListe: MutableList<Gegner>) {
-        val RED = "\u001B[31m"
-        val RESET = "\u001B[0m"
+
 
             println("Der $RED Drache $RESET beschwort einen $RED Babydrachen$RESET")
             gegnerListe.add(BabyDrache("Babydrache",150))
     }
 
     private fun gameOver(helden: MutableList<Held>, lebendeGegner: MutableList<Gegner>, gameOver: Boolean): Boolean {
-        val BLUE = "\u001B[34m"
-        val RESET = "\u001B[0m"
-        val RED = "\u001B[31m"
 
         var gameOver1 = gameOver // wenn helden liste Empty Filtert wenn keiner in liste gibt dann gibt println gameOver ersetzte helden verloren und game over true ersetzt dann spiel beendet
         if (helden.isEmpty()) {
@@ -126,11 +122,6 @@ fun main() {
         var lebendeGegner1 = lebendeGegner
         var inputValid = false
         var beutelUsed = false
-
-        val YELLOW = "\u001B[33m"
-        val BLUE = "\u001B[34m"
-        val RESET = "\u001B[0m"
-
 
         for (held in helden) {  // For-Schleife: Für jeden held, wenn lebendeGegner1 leer ist, endet die Funktion mit der aktuellen Liste der Gegner
             // For Döngüsü: Her held (kahraman) için bir döngü başlatılır. Eğer lebendeGegner1 (
@@ -205,12 +196,6 @@ fun main() {
     private fun aktionenGegner(gegner: MutableList<Gegner>, lebendeHelden: MutableList<Held>, ): MutableList<Held> {
         var lebendeHelden1 = lebendeHelden
         var inputValid = false
-
-        val CYAN = "\u001B[36m"
-        val RED = "\u001B[31m"
-        val YELLOW = "\u001B[33m"
-        val BLUE = "\u001B[34m"
-        val RESET = "\u001B[0m"
 
         /*
         Die erste For-Schleife (for (held in lebendeHelden)) prüft jeden Held (held).

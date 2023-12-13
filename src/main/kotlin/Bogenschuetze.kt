@@ -11,7 +11,7 @@ class Bogenschuetze(name: String, hp: Int): Held(name, hp, hp) {
         when (action) {
             "Bogen Attacke" -> target.takeDamage(attacDamage + Random.nextInt(50)) // das hier attacke addieren mit random 0..bis 50 punkte nimmt
             "Wurf Schleuder" ->{
-                this.takeDamage(1000)
+                this.takeDamage(100)
                 target.takeDamage(attacDamage2)
             }
             "Schlafen" -> this.heal(healAmount)

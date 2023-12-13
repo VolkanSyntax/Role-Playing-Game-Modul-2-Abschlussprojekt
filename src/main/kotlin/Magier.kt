@@ -9,7 +9,7 @@ class Magier( name: String,  hp: Int): Held(name, hp, hp) {
         when (action) {
             "ZauberSturm" -> target.takeDamage(attacDamage)
             "TodesZauber" ->{
-                this.takeDamage(1000)   // das hier erst selber  schadet und danach sein gegner schadet (This. heisst selber)
+                this.takeDamage(100)   // das hier erst selber  schadet und danach sein gegner schadet (This. heisst selber)
                 target.takeDamage(attacDamage2)
             }
             "HeilZauber" -> this.heal(healAmount) // hier heilt sich selber

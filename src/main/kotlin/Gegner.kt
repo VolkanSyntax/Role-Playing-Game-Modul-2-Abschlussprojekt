@@ -3,10 +3,7 @@ open class Gegner(val name: String, var hp: Int, val maxHp: Int, var isProtected
 
     fun takeDamage(damage: Int) {
 
-        val CYAN = "\u001B[36m"
         val RED = "\u001B[31m"
-        val YELLOW = "\u001B[33m"
-        val BLUE = "\u001B[34m"
         val RESET = "\u001B[0m"
 
         if(!isProtected){

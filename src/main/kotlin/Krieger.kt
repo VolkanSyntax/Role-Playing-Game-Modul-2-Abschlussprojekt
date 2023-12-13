@@ -9,7 +9,7 @@ class Krieger( name: String,  hp: Int): Held(name, hp, hp) {
         when (action) {
             "Schwert Attacke" -> target.takeDamage(attacDamage)
             "In rage" ->{
-                this.takeDamage(1000)
+                this.takeDamage(100)
                 target.takeDamage(attacDamage2)
             }
             "Elexier" -> this.heal(healAmount)
