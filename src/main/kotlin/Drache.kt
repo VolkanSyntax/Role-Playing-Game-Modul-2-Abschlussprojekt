@@ -6,17 +6,20 @@ class Drache( name: String,  hp: Int): Gegner(name, hp, hp) {
 
 
     override fun performAction(action: String, target: Held) {
+        val RED = "\u001B[31m"
+        val RESET = "\u001B[0m"
+
         when (action) {
             "Feuer Ball" ->{
-                println("$name speit einen Feuer Ball")
+                println("$RED$name$RESET speit einen Feuer Ball")
                 target.takeDamage(attacDamage)
             }
             "Fluegelschlag" ->{
-                println("$name führt einen Fluegelschlag aus")
+                println("$RED$name$RESET führt einen Fluegelschlag aus")
                 target.takeDamage(attacDamage2)
             }
             "Feueratem" -> {
-                println("$name führte bei allen Helden einen Feueratem aus")
+                println("$RED$name$RESET führte bei allen Helden einen Feueratem aus")
                 target.takeDamage(feueratemDamage)
             }
             "Heilender Feuer Stein" ->{
